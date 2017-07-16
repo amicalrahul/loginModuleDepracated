@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   private loginForm: any = null;
   constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
     this.loginForm = fb.group({
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
       rememberMe: [false]
     });
