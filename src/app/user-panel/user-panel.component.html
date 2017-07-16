@@ -1,3 +1,39 @@
-<p>
-  user-panel works!
-</p>
+<div *ngIf='!getAccessToken()' >
+  <div class="dropdown">
+      <a id="login" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Log In
+          <span class="caret"></span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="login" style="width: 500px;">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h4>
+                      <a href (click)="changeLoginMode('register')">Register</a>
+                      &nbsp;|&nbsp;
+                      <a href (click)="changeLoginMode('login')">Log In</a>
+                  </h4>
+              </div>
+              <div class="row" hidden="loginMode !== 'register'">
+                  <div class="col-md-12">
+                      <app-register login-after-register="loginAfterRegister"
+                                post-register="postRegister()"
+                                post-login="postLogin()"></app-register>
+                  </div>
+              </div>
+              <div class="row" hidden="loginMode !== 'login'">
+                  <div class="col-md-12">
+                      <app-login post-login="postLogin()"></app-login>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div *ngIf='getAccessToken()'>
+  <div>
+      <span>{{ userLabel }}</span>
+      <span if="showLogout">
+          ( <a href (click)="logout()">Log Out</a> )
+      </span>
+  </div>
+</div>
