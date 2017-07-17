@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
       this.showRememberMe = false;
     }
   }
-  login() {
-    this.authenticationService.login(this.loginForm.value.userName, this.loginForm.value.password)
+  performLogin() {
+    this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
     .subscribe(loginResponse => {
             this.postLogin.emit(loginResponse);
       });
