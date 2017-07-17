@@ -19,11 +19,17 @@ export class AuthenticationService {
   login(userName: string , password: string): Observable<any> {
     const payload = 'password=' + encodeURIComponent(password)
                 + '&grant_type=password&username=' + encodeURIComponent(userName);
-    const headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }); // ... Set content type to JSON
     const options = new RequestOptions({ headers: headers }); // Create a request option
 
     return this._http.post(this.baseAddress + 'Token', payload, options)
-        .map(this.mapResponse)
+        .map(response => {
+          localStorage['login'] = response.json().access_token;
+          localStorage['userName'] = userName;
+          this.loggedIn = true;
+          this.userName = userName;
+          return userName;
+        })
         .catch(this.handleError);
   }
   logout(): void {
@@ -37,7 +43,7 @@ export class AuthenticationService {
     let accessToken = '';
     const login = localStorage['login'];
     if (login) {
-        accessToken = JSON.parse(login).access_token;
+        accessToken = login;
     }
     return accessToken;
   }
