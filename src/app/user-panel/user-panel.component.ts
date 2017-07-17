@@ -19,8 +19,9 @@ export class UserPanelComponent implements OnInit {
 
   ngOnInit() {
   }
-  changeLoginMode($event, mode) {
-    $event.stopPropagation();
+  changeLoginMode(e, mode) {
+    e.preventDefault();
+    e.stopPropagation();
     this.loginMode = mode;
   }
 
